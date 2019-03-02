@@ -1,0 +1,29 @@
+{
+	"name": "hello",
+	"authors": [
+		"ryuukk_"
+	],
+	"description": "game framework",
+	"copyright": "Copyright © 2019, ryuukk_",
+	"license": "proprietary",
+	"targetType": "executable",
+	"targetPath": "../../bin",
+	"dependencies": {
+		"bindbc-opengl": "~>0.1.0",
+        "bindbc-glfw": "~>0.1.0",
+		"sandbox": {
+			"path":"../../sandbox"
+		}
+	},
+	
+	"versions": [
+		"GL_33",
+		"GLFW_32"
+	],
+    "buildTypes":
+    {
+        "debug": { "buildOptions": ["debugMode", "debugInfoC"] },
+        "release": { "buildOptions": ["releaseMode", "optimize", "inline", "noBoundsCheck"] },
+        "profile": { "buildOptions": ["releaseMode", "optimize", "noBoundsCheck", "debugInfoC"] },
+    }
+}

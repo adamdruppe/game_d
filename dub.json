@@ -1,0 +1,46 @@
+{
+	"name": "game_d",
+	"authors": [
+		"ryuukk_"
+	],
+	"description": "game framework",
+	"copyright": "Copyright © 2019, ryuukk_",
+	"license": "proprietary",
+	"subPackages": [
+		{
+			"name":"sandbox",
+			"targetType": "library",
+			"targetPath": "bin",
+			"workingDirectory": "bin",
+			"sourcePaths": ["sandbox/source"],
+			"importPaths": ["sandbox/source"],			
+			"dependencies": {
+				"bindbc-opengl": "~>0.1.0",
+				"bindbc-glfw": "~>0.1.0"
+			},
+			"versions": [
+				"GL_33",
+				"GLFW_32"
+			]
+		},
+		{
+			"name":"hello_0",
+			"targetType": "executable",
+			"targetPath": "bin",
+			"workingDirectory": "bin",
+			"sourcePaths": ["sandbox/source", "samples/hello_0/source"],
+			"importPaths": ["sandbox/source", "samples/hello_0/source"],
+			"dependencies": {
+				"bindbc-opengl": "~>0.1.0",
+				"bindbc-glfw": "~>0.1.0",
+				"sandbox": {
+					"path":"sandbox"
+				}
+			},
+			"versions": [
+				"GL_33",
+				"GLFW_32"
+			]
+		}
+	]
+}
