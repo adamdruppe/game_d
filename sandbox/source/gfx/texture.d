@@ -1,7 +1,11 @@
 module sandbox.gfx.texture;
 
+import std.stdio;
+import std.format;
+
 import bindbc.opengl;
 import bindbc.opengl.gl;
+import stb.image;
 
 public enum TextureFilter
 {
@@ -66,21 +70,20 @@ int getGLEnumFromTextureWrap(TextureWrap wrap)
 
 public abstract class GLTexture
 {
-    public GLenum glTarget;
-    protected GLuint glHandle;
-    protected TextureFilter minFilter = TextureFilter.Nearest;
-    protected TextureFilter magFilter = TextureFilter.Nearest;
-    protected TextureWrap uWrap = TextureWrap.ClampToEdge;
-    protected TextureWrap vWrap = TextureWrap.ClampToEdge;
+    private GLenum glTarget;
+    private GLuint glHandle;
+    private TextureFilter minFilter = TextureFilter.Nearest;
+    private TextureFilter magFilter = TextureFilter.Nearest;
+    private TextureWrap uWrap = TextureWrap.ClampToEdge;
+    private TextureWrap vWrap = TextureWrap.ClampToEdge;
 
-    protected this(GLenum glTarget)
+    public this(GLenum glTarget)
     {
         GLuint handle;
         glGenTextures(1, &handle);
-
         this(glTarget, handle);
     }
-    protected this(GLenum glTarget, GLuint glHandle)
+    public this(GLenum glTarget, GLuint glHandle)
     {
         this.glTarget = glTarget;
         this.glHandle = glHandle;
@@ -94,7 +97,7 @@ public abstract class GLTexture
 
     public abstract bool isManaged();
 
-    protected abstract void reload();
+    public abstract void reload();
 
     public void bind()
     {
@@ -191,7 +194,7 @@ public abstract class GLTexture
         glTexParameteri(GL_TEXTURE_MAG_FILTER, getGLEnumFromTextureFilter(magFilter), glTarget);
     }
 
-    protected void deletee()
+    public void deletee()
     {
         if (glHandle != 0)
         {
@@ -205,18 +208,61 @@ public class Texture2D : GLTexture
 {
     private int _width;
     private int _height;
+    private Image _data;
 
     public this(GLenum glTarget)
     {
         super(glTarget);
+    }
+
+    public override int getWidth()
+    {
+        return _width;
+    }
+    public override int getHeight()
+    {
+        return _height;
+    }
+
+    public override int getDepth()
+    {
+        return 0;
+    }
+
+    public override bool isManaged()
+    {
+        return true;
+    }
+
+    public override void reload()
+    {
+        
+    }
+
+    public void setData(Image data, int w, int h)
+    {
+        _data = data;
+        _width = w;
+        _height = h;
+
+        bind();
+
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        glTexImage2D(glTarget, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data[].ptr);
+
+        glBindTexture(glTarget, 0);
     }
 }
 
 
 Texture2D loadTexture2DFromFile(string path)
 {
-    //import stb.image;
 
+    auto image = new Image(path);
+    auto tex = new Texture2D(GL_TEXTURE_2D);
+    tex.setData(image, image.w(), image.h());
+
+    writeln(format("Loaded Image: %s, Size: %s:%s", path, image.w(), image.h()));
 
     return null;
 }

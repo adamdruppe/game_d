@@ -16,12 +16,20 @@
 			"importPaths": ["sandbox/source"],			
 			"dependencies": {
 				"bindbc-opengl": "~>0.1.0",
-				"bindbc-glfw": "~>0.1.0"
+				"bindbc-glfw": "~>0.1.0",
+				"bindbc-openal": "~>0.1.0",
+				"stb": "~>1.7.5"
 			},
 			"versions": [
 				"GL_33",
 				"GLFW_32"
-			]
+			],
+			"buildTypes":
+			{
+				"debug": { "buildOptions": ["debugMode", "debugInfoC"] },
+				"release": { "buildOptions": ["releaseMode", "optimize", "inline", "noBoundsCheck"] },
+				"profile": { "buildOptions": ["releaseMode", "optimize", "noBoundsCheck", "debugInfoC"] }
+			}
 		},
 		{
 			"name":"hello_0",
@@ -33,6 +41,8 @@
 			"dependencies": {
 				"bindbc-opengl": "~>0.1.0",
 				"bindbc-glfw": "~>0.1.0",
+				"bindbc-openal": "~>0.1.0",
+				"stb": "~>1.7.5",
 				"sandbox": {
 					"path":"sandbox"
 				}
@@ -40,7 +50,13 @@
 			"versions": [
 				"GL_33",
 				"GLFW_32"
-			]
+			],
+			"buildTypes":
+			{
+				"debug": { "buildOptions": ["debugMode", "debugInfoC"] },
+				"release": { "buildOptions": ["releaseMode", "optimize", "inline", "noBoundsCheck"] },
+				"profile": { "buildOptions": ["releaseMode", "optimize", "noBoundsCheck", "debugInfoC"] }
+			}
 		}
 	]
 }
