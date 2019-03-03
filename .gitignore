@@ -14,11 +14,15 @@
 # Executables
 *.exe
 
+# .vscode
+.vscode/
+
 # DUB
 .dub
 docs.json
 __dummy.html
 docs/
+*.selections.json
 
 # Code coverage
 *.lst

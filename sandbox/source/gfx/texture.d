@@ -254,7 +254,6 @@ public class Texture2D : GLTexture
     }
 }
 
-
 Texture2D loadTexture2DFromFile(string path)
 {
 

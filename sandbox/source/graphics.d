@@ -34,6 +34,84 @@ extern (C) void onFrameBufferResize(GLFWwindow* window, int width, int height) n
 	}
 }
 
+// window specific callbacks
+
+extern (C) void focusCallback(GLFWwindow* window, int focused) nothrow
+{
+	try
+	{
+		writeln(format("EVENT: focusCallback(%s)", focused));
+	}
+	catch (Exception e)
+	{
+
+	}
+}
+
+extern (C) void iconifyCallback(GLFWwindow* window, int iconified) nothrow
+{
+	try
+	{
+		writeln(format("EVENT: iconifyCallback(%s)", iconified));
+	}
+	catch (Exception e)
+	{
+
+	}
+}
+
+extern (C) void maximizeCallback(GLFWwindow* window, int maximized) nothrow
+{
+	try
+	{
+		writeln(format("EVENT: maximizeCallback(%s)", maximized));
+	}
+	catch (Exception e)
+	{
+
+	}
+}
+
+extern (C) void closeCallback(GLFWwindow* window) nothrow
+{
+	try
+	{
+		writeln(format("EVENT: closeCallback()"));
+	}
+	catch (Exception e)
+	{
+
+	}
+}
+
+extern (C) void dropCallback(GLFWwindow* window, int count, const(char*)* names) nothrow
+{
+	try
+	{
+		writeln(format("EVENT: dropCallback(%s, %s)", count, names));
+	}
+	catch (Exception e)
+	{
+
+	}
+}
+
+extern (C) void refreshCallback(GLFWwindow* window) nothrow
+{
+	try
+	{
+		writeln(format("EVENT: refreshCallback()"));
+	}
+	catch (Exception e)
+	{
+
+	}
+}
+
+
+// --
+
+
 public enum HdpiMode
 {
 	Logical,
@@ -134,6 +212,15 @@ public class Graphics
 		glViewport(0, 0, _width, _height);
 
 		glfwSetFramebufferSizeCallback(_window, &onFrameBufferResize);
+
+		// window specific callbacks
+		glfwSetWindowFocusCallback(_window, &focusCallback);
+		glfwSetWindowIconifyCallback(_window, &iconifyCallback);
+		//glfwSetWindowMaximizeCallback(_window, &maximizeCallback);
+		glfwSetWindowCloseCallback(_window, &closeCallback);
+		glfwSetDropCallback(_window, &dropCallback);
+		glfwSetWindowRefreshCallback(_window, &refreshCallback);
+		// --
 		return true;
 	}
 

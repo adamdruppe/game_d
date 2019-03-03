@@ -1,6 +1,7 @@
 import std.stdio;
 import std.conv;
 import std.string;
+import core.memory;
 
 import sandbox.core;
 import sandbox.engine;
@@ -10,12 +11,14 @@ import sandbox.gfx.texture;
 public class MyGame : IApp
 {
     private Texture2D _tex;
+
     public void create()
     {
-        writeln("INFO: Create mey");
+        GC.collect();
+        writeln("INFO: Create mey !!");
 
         _tex = loadTexture2DFromFile("bg_stars.png");
-
+        
         // anonymous class so cool :D
         auto p = new class IInputProcessor
         {

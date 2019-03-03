@@ -8,14 +8,14 @@
 	"license": "proprietary",
 	"targetType": "executable",
 	"targetPath": "../../bin",
+	"workingDirectory": "../../bin",
 	"dependencies": {
 		"bindbc-opengl": "~>0.1.0",
-        "bindbc-glfw": "~>0.1.0",
-		"sandbox": {
-			"path":"../../sandbox"
-		}
+		"bindbc-glfw": "~>0.1.0",
+		"bindbc-openal": "~>0.1.0",
+		"stb": "~>1.7.5",
+		"sandbox": { "path": "../../sandbox" }
 	},
-	
 	"versions": [
 		"GL_33",
 		"GLFW_32"
